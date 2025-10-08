@@ -27,18 +27,18 @@ public class MovementCharacter : MonoBehaviour
 	
 	void Update()
 	{
-		// Спринт
-		if(sprintAction.IsPressed())
-		{
-			speedCharacter = 6;
-		}
-		else
-		{
-			speedCharacter = 3;
-		}
-		//Прыжок
+		//Прыжок Спринт
 		if(IsGrounde.isGrounded)
 		{
+			if(sprintAction.IsPressed())
+			{
+				speedCharacter = 6;
+			}
+			else
+			{
+				speedCharacter = 3;
+			}
+			
 			if(jumpAction.WasPressedThisFrame())
 			{
 				rb.AddForce(Vector3.up * maxForceJump, ForceMode.Impulse);
