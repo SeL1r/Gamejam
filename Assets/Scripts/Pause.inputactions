@@ -1,0 +1,35 @@
+{
+    "version": 1,
+    "name": "Pause",
+    "maps": [
+        {
+            "name": "New action map",
+            "id": "2e140bb2-5445-441f-a4a0-440a965ed4de",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "5fa1c33d-10e3-45bc-b2e1-4d905139358c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "8e4f8152-bc18-499e-94e1-9a428dbe8389",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
