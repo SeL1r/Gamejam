@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class MenuManager : MonoBehaviour
 {
     private InputAction pauseAction;
-    public GameObject menuPanel;
-    public Button playButton;
+    public GameObject menuPanel, settings;
+    public Button playButton, apply, cancel;
     public Button settingsButton;
     public Button exitButton;
 
@@ -26,6 +26,10 @@ public class MenuManager : MonoBehaviour
         if (pauseAction.WasPressedThisFrame())
         {
             TogglePause();
+            if (settings.activeInHierarchy)
+            {
+                settings.SetActive(false);
+            }
         }
     }
 
@@ -34,6 +38,8 @@ public class MenuManager : MonoBehaviour
         playButton.onClick.AddListener(OnPlayButtonClick);
         settingsButton.onClick.AddListener(OnSettingsButtonClick);
         exitButton.onClick.AddListener(OnExitButtonClick);
+        apply.onClick.AddListener(ApplyButton);
+        cancel.onClick.AddListener(CancelButton);
 
         menuPanel.SetActive(false); 
     }
@@ -63,14 +69,25 @@ public class MenuManager : MonoBehaviour
         TogglePause();
     }
 
+    void ApplyButton()
+    {
+        settings.SetActive(false);
+    }
+
+    void CancelButton()
+    {
+        settings.SetActive(false);
+    }
+
     void OnSettingsButtonClick()
     {
-
+        settings.SetActive(true);
     }
 
     void OnExitButtonClick()
     {
         TogglePause();
         SceneManager.LoadScene("Menu");
+        
     }
 }
