@@ -34,7 +34,7 @@ namespace Assets.Scripts
             MVText.text = Mathf.Round(MVScrollbar.value * 100).ToString();
             
         }
-        //кнопка отмены
+        
 
 
         void CancelChanges()
@@ -42,7 +42,7 @@ namespace Assets.Scripts
             LoadSettings();
         }
 
-        //кнопка принять
+        
 
 
 
@@ -55,7 +55,7 @@ namespace Assets.Scripts
         void SaveSettings()
         {
 
-            //сохраняем свойства
+            
 
 
             settingsData.sensetivity = (scrollbarSensetivity.value * 9) + 1;
@@ -69,7 +69,7 @@ namespace Assets.Scripts
         void LoadSettings()
         {
 
-            //берем предыдущие данные
+            
 
 
             float prevSense = PlayerPrefs.GetFloat("Sensetivity");
