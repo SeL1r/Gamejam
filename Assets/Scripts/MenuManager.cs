@@ -23,6 +23,7 @@ public class MenuManager : MonoBehaviour
 
     private void Update()
     {
+        //на эскейп открывается меню паузы
         if (pauseAction.WasPressedThisFrame())
         {
             TogglePause();
@@ -43,13 +44,14 @@ public class MenuManager : MonoBehaviour
 
         menuPanel.SetActive(false); 
     }
-
+    //переключает состояние панели 
     void TogglePause()
     {
         _isPaused = !_isPaused;
 
         if (_isPaused)
         {
+            //курсор разблокается и становится видимым
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
             menuPanel.SetActive(true);
@@ -58,6 +60,7 @@ public class MenuManager : MonoBehaviour
         }
         else
         {
+            //если не стоит паузы то курсор блокируется и изчезает
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             menuPanel.SetActive(false);
@@ -84,6 +87,7 @@ public class MenuManager : MonoBehaviour
         settings.SetActive(true);
     }
 
+    //выход в меню
     void OnExitButtonClick()
     {
         TogglePause();
