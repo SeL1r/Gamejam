@@ -12,6 +12,10 @@ public class MovementCharacter : MonoBehaviour
 	float speedCharacter = 3, maxForceJump = 7;
 	void Start()
 	{
+		
+		sensetivity = PlayerPrefs.GetFloat("Sensetivity");
+		
+		
 		moveAction = InputSystem.actions.FindAction("Move");
 		jumpAction = InputSystem.actions.FindAction("Jump");
 		sprintAction = InputSystem.actions.FindAction("Sprint");
@@ -23,7 +27,6 @@ public class MovementCharacter : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		sensetivity = PlayerPrefs.GetFloat("Sensetivity");
 		
 		Vector2 move = moveAction.ReadValue<Vector2>();
 		Vector3 localVelocity = new Vector3(move.x * speedCharacter, rb.linearVelocity.y, move.y * speedCharacter);
@@ -33,6 +36,7 @@ public class MovementCharacter : MonoBehaviour
 	
 	void Update()
 	{
+		
 		Vector3 centerPoint = new Vector3(Screen.width / 2, Screen.height / 2, 0);
 		Ray ray = mainCamera.ScreenPointToRay(centerPoint);
 		RaycastHit hit;
