@@ -3,12 +3,13 @@ using UnityEngine.InputSystem;
 
 public class MovementCharacter : MonoBehaviour
 {
+	float maxHeadAngle;
 	float sensetivity;
 	public Camera mainCamera;
 	public GameObject head;
 	InputAction moveAction, jumpAction, sprintAction, lookAction;
 	Rigidbody rb;
-	float speedCharacter = 3, maxForceJump = 10;
+	float speedCharacter = 3, maxForceJump = 7;
 	void Start()
 	{
 		//Выгруженние сохранений
@@ -28,8 +29,9 @@ public class MovementCharacter : MonoBehaviour
 	{
 		//Передвижение игрока
 		Vector2 move = moveAction.ReadValue<Vector2>();
-		Vector3 velocity = new Vector3(move.x * speedCharacter, rb.linearVelocity.y, move.y * speedCharacter);
-		rb.linearVelocity = velocity;
+		Vector3 localVelocity = new Vector3(move.x * speedCharacter, rb.linearVelocity.y, move.y * speedCharacter);
+		Vector3 globalVelocity = transform.TransformDirection(localVelocity);
+		rb.linearVelocity = globalVelocity;
 	}
 	
 	void Update()
@@ -40,17 +42,16 @@ public class MovementCharacter : MonoBehaviour
 		RaycastHit hit;
 		if(Physics.Raycast(ray, out hit))
 		{
-			GameObject hitObjrct = hit.collider.gameObject;
+			GameObject hitObject = hit.collider.gameObject;
 		}
-		
+
 		//Поворот камеры
 		Vector2 look = lookAction.ReadValue<Vector2>() * Time.deltaTime * sensetivity;
-		Vector2 lookHead = new Vector2(-look.y, 0);
-		Vector2 lookPlayer = new Vector2(0, look.x);
+		maxHeadAngle = Mathf.Clamp(maxHeadAngle - look.y, -70, 55);
 		if (look != Vector2.zero)
 		{
-			head.transform.Rotate(lookHead);
-			transform.Rotate(lookPlayer);
+			head.transform.localRotation = Quaternion.Euler(maxHeadAngle, 0, 0);
+			transform.Rotate(0, look.x, 0);
 		}
 		
 		//Прыжок Спринт
