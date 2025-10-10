@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class MainMenu : MonoBehaviour
 {
     public GameObject settingsPanel;
-    public Button play, settings, exit;
+    public Button play, settings, exit, apply, cancel;
 
     void Start()
     {
@@ -19,7 +19,8 @@ public class MainMenu : MonoBehaviour
         play.onClick.AddListener(Play);
         settings.onClick.AddListener(OpenSettings);
         exit.onClick.AddListener(Exit);
-
+        apply.onClick.AddListener(CloseSettings);
+        cancel.onClick.AddListener(CloseSettings);
     }
     void OpenSettings()
     {
@@ -29,7 +30,6 @@ public class MainMenu : MonoBehaviour
     void Play()
     {
         SceneManager.LoadScene("SampleScene");
-        
     }
 
     void Exit()
@@ -38,5 +38,10 @@ public class MainMenu : MonoBehaviour
                 UnityEditor.EditorApplication.isPlaying = false;
         #endif
         Application.Quit();
+    }
+
+    void CloseSettings()
+    {
+        settingsPanel.SetActive(false);
     }
 }
