@@ -16,8 +16,11 @@ namespace Assets.Scripts
         private Camera cam;
         public Button cancel, apply;
         SettingsData settingsData = new SettingsData();
+HEAD
 
         [Header("Настройки")]
+
+70e629b3ec6a30f10a516ad270e0e7bfc8d33aa9
         public Scrollbar scrollbarSensetivity, fovScrollbar, MVScrollbar;
         public TMP_Text SensetivityValue, fovText, MVText;
 
@@ -36,12 +39,20 @@ namespace Assets.Scripts
             MVText.text = Mathf.Round(MVScrollbar.value * 100).ToString();
             
         }
+HEAD
         //кнопка отмены
+
+
+70e629b3ec6a30f10a516ad270e0e7bfc8d33aa9
         void CancelChanges()
         {
             LoadSettings();
         }
+HEAD
         //кнопка принять
+
+
+70e629b3ec6a30f10a516ad270e0e7bfc8d33aa9
         void ApplyChanges()
         {
             
@@ -50,7 +61,10 @@ namespace Assets.Scripts
 
         void SaveSettings()
         {
+HEAD
             //сохраняем свойства
+
+70e629b3ec6a30f10a516ad270e0e7bfc8d33aa9
             settingsData.sensetivity = (scrollbarSensetivity.value * 9) + 1;
             PlayerPrefs.SetFloat("Sensetivity", settingsData.sensetivity);
             settingsData.fieldOfView = (fovScrollbar.value * 60) + 30;
@@ -61,7 +75,10 @@ namespace Assets.Scripts
         }
         void LoadSettings()
         {
+HEAD
             //берем предыдущие данные
+
+70e629b3ec6a30f10a516ad270e0e7bfc8d33aa9
             float prevSense = PlayerPrefs.GetFloat("Sensetivity");
             float prevFOV = PlayerPrefs.GetFloat("FOV");
             float prevMV = PlayerPrefs.GetFloat("MasterVolume");
