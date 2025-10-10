@@ -2853,6 +2853,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1398844300}
   - component: {fileID: 1398844301}
+  - component: {fileID: 1398844302}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -2896,6 +2897,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.36, y: 1, z: 0.43}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1398844302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1398844299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d520f25154ffb1a458a023c3e3bdaf2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IsGrounde
 --- !u!1 &1421239938
 GameObject:
   m_ObjectHideFlags: 0
@@ -3416,6 +3429,7 @@ GameObject:
   - component: {fileID: 1722353034}
   - component: {fileID: 1722353033}
   - component: {fileID: 1722353032}
+  - component: {fileID: 1722353037}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -3448,7 +3462,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!136 &1722353033
 CapsuleCollider:
@@ -3546,6 +3560,20 @@ Transform:
   - {fileID: 1398844300}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1722353037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1722353031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eb46793aba9db042b45b338ce13a915, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MovementCharacter
+  mainCamera: {fileID: 330585545}
+  head: {fileID: 592083098}
 --- !u!1 &1757993148
 GameObject:
   m_ObjectHideFlags: 0
