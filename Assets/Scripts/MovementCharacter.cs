@@ -9,11 +9,9 @@ public class MovementCharacter : MonoBehaviour
 	public GameObject head;
 	InputAction moveAction, jumpAction, sprintAction, lookAction;
 	Rigidbody rb;
-	float speedCharacter = 3, maxForceJump = 7;
+	float speedCharacter = 1, maxForceJump = 7;
 	void Start()
 	{
-		
-		sensetivity = PlayerPrefs.GetFloat("Sensetivity");
 		
 		
 		moveAction = InputSystem.actions.FindAction("Move");
@@ -45,7 +43,7 @@ public class MovementCharacter : MonoBehaviour
 			GameObject hitObject = hit.collider.gameObject;
 		}
 
-	
+		sensetivity = PlayerPrefs.GetFloat("Sensetivity");
 		Vector2 look = lookAction.ReadValue<Vector2>() * Time.deltaTime * sensetivity;
 		maxHeadAngle = Mathf.Clamp(maxHeadAngle - look.y, -70, 55);
 		if (look != Vector2.zero)
@@ -71,5 +69,5 @@ public class MovementCharacter : MonoBehaviour
 				rb.AddForce(Vector3.up * maxForceJump, ForceMode.Impulse);
 			}
 		}
-	}
+}
 }
