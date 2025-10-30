@@ -13,7 +13,6 @@ namespace Assets.Scripts
 {
     public class Subtitle : MonoBehaviour
     {
-        private int _index = 0;
         public Camera playerCamera;
         public bool billboard = true;
         private TextMeshPro sub;

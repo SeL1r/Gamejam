@@ -4,18 +4,19 @@ using TMPro;
 
 public class MovementCharacter : MonoBehaviour
 {
+	public UIHandler UIhandle;
 	int _index = 0;
 	float maxHeadAngle;
 	float sensetivity;
 	public Data data;
 	public Camera mainCamera;
-	public GameObject head;
+	public GameObject head, hintUI;
 	InputAction moveAction, jumpAction, sprintAction, lookAction, interactAction;
 	Rigidbody rb;
 	float speedCharacter = 1, maxForceJump = 7;
 	void Start()
 	{
-		
+		UIhandle.SetHintUI(hintUI);
 		
 		moveAction = InputSystem.actions.FindAction("Move");
 		jumpAction = InputSystem.actions.FindAction("Jump");
@@ -38,37 +39,50 @@ public class MovementCharacter : MonoBehaviour
 	
 	void Update()
 	{
-		
+		GameObject hitObject = new GameObject();
 		Vector3 centerPoint = new Vector3(Screen.width / 2, Screen.height / 2, 0);
-		if (interactAction.WasPressedThisFrame())
+        Ray ray = mainCamera.ScreenPointToRay(centerPoint);
+        RaycastHit hit;
+		if (Physics.Raycast(ray, out hit))
 		{
-            Ray ray = mainCamera.ScreenPointToRay(centerPoint);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
+            hitObject = hit.collider.gameObject;
+        }
+        if (interactAction.WasPressedThisFrame() && hitObject != null)
+        {
+            switch (hitObject.tag)
             {
-                GameObject hitObject = hit.collider.gameObject;
-				switch (hitObject.tag)
-				{
-					case "Radio":
-						TextMeshPro tmp = hitObject.GetComponent<TextMeshPro>();
+                case "Radio":
+                    TextMeshPro tmp = hitObject.GetComponent<TextMeshPro>();
 
-                        if (tmp != null)
-						{
-                            data.NextSubtitle(tmp, _index);
-                            _index++;
-                            break;
-                        }
-						Debug.Log("TMP not found");
-						break;
-					default:
-						break;
-				};
-
+                    if (tmp != null)
+                    {
+                        data.NextSubtitle(tmp, _index);
+                        _index++;
+                        break;
+                    }
+                    Debug.Log("TMP not found");
+                    break;
+                default:
+                    break;
             }
         }
-		
+        switch (hitObject.layer)
+        {
+            case 6:
+                if (UIhandle.currentHintUI.activeSelf)
+                    break;
+                UIhandle.ShowHint();
+                break;
+            default:
+                if (UIhandle.currentHintUI.activeSelf)
+                {
+                    UIhandle.HideHint();
+                }
+                break;
+        }
 
-		sensetivity = PlayerPrefs.GetFloat("Sensetivity");
+
+        sensetivity = PlayerPrefs.GetFloat("Sensetivity");
 		Vector2 look = lookAction.ReadValue<Vector2>() * Time.deltaTime * sensetivity;
 		maxHeadAngle = Mathf.Clamp(maxHeadAngle - look.y, -70, 55);
 		if (look != Vector2.zero)
