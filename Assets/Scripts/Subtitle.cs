@@ -5,25 +5,31 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using TMPro;
+using Unity.Collections.LowLevel.Unsafe;
+using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 namespace Assets.Scripts
 {
     public class Subtitle : MonoBehaviour
     {
+        private int _index = 0;
         public Camera playerCamera;
         public bool billboard = true;
+        private TextMeshPro sub;
 
-        // Для сохранения оригинального поворота если нужно
+        private InputAction nextSub;
+
         private Vector3 originalPosition;
         private Quaternion originalRotation;
 
         void Start()
         {
-            // Сохраняем оригинальные трансформы
+            nextSub = InputSystem.actions.FindAction("NextSubtitle");
             originalPosition = transform.position;
             originalRotation = transform.rotation;
-
-            // Автопоиск камеры если не назначена
+            sub = GetComponent<TextMeshPro>();
+            
             if (playerCamera == null)
                 playerCamera = Camera.main;
         }
@@ -31,13 +37,9 @@ namespace Assets.Scripts
         void LateUpdate()
         {
             if (billboard && playerCamera != null)
-            {
-                // Вариант 1: Простой поворот к камере
+            { 
                 transform.LookAt(transform.position + playerCamera.transform.forward);
 
-                // Вариант 2: Более точный поворот
-                // transform.LookAt(playerCamera.transform);
-                // transform.rotation = Quaternion.LookRotation(transform.position - playerCamera.transform.position);
             }
         }
     }

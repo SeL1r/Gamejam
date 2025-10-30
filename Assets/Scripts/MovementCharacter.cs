@@ -1,13 +1,16 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class MovementCharacter : MonoBehaviour
 {
+	int _index = 0;
 	float maxHeadAngle;
 	float sensetivity;
+	public Data data;
 	public Camera mainCamera;
 	public GameObject head;
-	InputAction moveAction, jumpAction, sprintAction, lookAction;
+	InputAction moveAction, jumpAction, sprintAction, lookAction, interactAction;
 	Rigidbody rb;
 	float speedCharacter = 1, maxForceJump = 7;
 	void Start()
@@ -18,6 +21,7 @@ public class MovementCharacter : MonoBehaviour
 		jumpAction = InputSystem.actions.FindAction("Jump");
 		sprintAction = InputSystem.actions.FindAction("Sprint");
 		lookAction = InputSystem.actions.FindAction("Look");
+		interactAction = InputSystem.actions.FindAction("Interact");
 		
 		rb = GetComponent<Rigidbody>();
 		
@@ -36,12 +40,33 @@ public class MovementCharacter : MonoBehaviour
 	{
 		
 		Vector3 centerPoint = new Vector3(Screen.width / 2, Screen.height / 2, 0);
-		Ray ray = mainCamera.ScreenPointToRay(centerPoint);
-		RaycastHit hit;
-		if(Physics.Raycast(ray, out hit))
+		if (interactAction.WasPressedThisFrame())
 		{
-			GameObject hitObject = hit.collider.gameObject;
-		}
+            Ray ray = mainCamera.ScreenPointToRay(centerPoint);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
+            {
+                GameObject hitObject = hit.collider.gameObject;
+				switch (hitObject.tag)
+				{
+					case "Radio":
+						TextMeshPro tmp = hitObject.GetComponent<TextMeshPro>();
+
+                        if (tmp != null)
+						{
+                            data.NextSubtitle(tmp, _index);
+                            _index++;
+                            break;
+                        }
+						Debug.Log("TMP not found");
+						break;
+					default:
+						break;
+				};
+
+            }
+        }
+		
 
 		sensetivity = PlayerPrefs.GetFloat("Sensetivity");
 		Vector2 look = lookAction.ReadValue<Vector2>() * Time.deltaTime * sensetivity;
