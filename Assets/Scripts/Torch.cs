@@ -2,7 +2,7 @@ using UnityEngine;
 public class Torch : MonoBehaviour
 {
 	public GameObject lightTorch;
-	bool isTorch = false;
+	public static bool isTorch = false;
 	void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.F))
