@@ -62,6 +62,10 @@ public class MovementCharacter : MonoBehaviour
                     }
                     Debug.Log("TMP not found");
                     break;
+				case "Door":
+					Animator anim = hitObject.GetComponent<Animator>();
+					anim.SetBool("IsOpen", !anim.GetBool("IsOpen"));
+					break;
                 default:
                     break;
             }
