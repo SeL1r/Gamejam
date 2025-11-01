@@ -9,7 +9,7 @@ public class MovementCharacter : MonoBehaviour
 	float maxHeadAngle;
 	float sensetivity;
 	public Data data;
-    private GameObject hitObject = new GameObject();
+    public GameObject hitObject;
     public Camera mainCamera;
 	public GameObject head, hintUI;
 	InputAction moveAction, jumpAction, sprintAction, lookAction, interactAction;
@@ -26,7 +26,6 @@ public class MovementCharacter : MonoBehaviour
 		interactAction = InputSystem.actions.FindAction("Interact");
 		
 		rb = GetComponent<Rigidbody>();
-		
 	}
 
 	void FixedUpdate()
