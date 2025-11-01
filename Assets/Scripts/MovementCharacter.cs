@@ -9,7 +9,8 @@ public class MovementCharacter : MonoBehaviour
 	float maxHeadAngle;
 	float sensetivity;
 	public Data data;
-	public Camera mainCamera;
+    private GameObject hitObject = new GameObject();
+    public Camera mainCamera;
 	public GameObject head, hintUI;
 	InputAction moveAction, jumpAction, sprintAction, lookAction, interactAction;
 	Rigidbody rb;
@@ -39,11 +40,11 @@ public class MovementCharacter : MonoBehaviour
 	
 	void Update()
 	{
-		GameObject hitObject = new GameObject();
+		
 		Vector3 centerPoint = new Vector3(Screen.width / 2, Screen.height / 2, 0);
         Ray ray = mainCamera.ScreenPointToRay(centerPoint);
         RaycastHit hit;
-		if (Physics.Raycast(ray, out hit))
+		if (Physics.Raycast(ray, out hit, 1f))
 		{
             hitObject = hit.collider.gameObject;
         }
