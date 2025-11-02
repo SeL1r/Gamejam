@@ -49,6 +49,14 @@ public class MovementCharacter : MonoBehaviour
 		{
 			hitObject = hit.collider.gameObject;
 		}
+		
+		//Shadow back
+		NavMeshAgent agent = hitObject.GetComponent<NavMeshAgent>();
+		if (Torch.isTorch)
+        {
+        	agent.speed = -5;
+        }
+		
 		if (interactAction.WasPressedThisFrame() && hitObject != null)
 		{
 			switch (hitObject.tag)
@@ -70,13 +78,6 @@ public class MovementCharacter : MonoBehaviour
 					doorSource.Play();
 					break;
 				default:
-					break;
-				case "Shadow":
-					NavMeshAgent agent = hitObject.GetComponent<NavMeshAgent>();
-					if (Torch.isTorch)
-                    {
-                        agent.speed = -5;
-                    }
 					break;
 			}
 		}
