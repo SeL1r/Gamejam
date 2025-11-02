@@ -9,11 +9,14 @@ public class Data : ScriptableObject
 {
     [SerializeField]
     private List<string> subtitles = new List<string>();
-    public void NextSubtitle(TextMeshPro tmp, int i)
+    public void NextSubtitle(TextMeshPro tmp, int i, AudioSource audioSource)
     {
         if (i < subtitles.Count)
         {
             tmp.text = subtitles[i];
+            audioSource.Play();
         }
     }
+
+    
 }

@@ -16,6 +16,7 @@ public class MovementCharacter : MonoBehaviour
 	InputAction moveAction, jumpAction, sprintAction, lookAction, interactAction;
 	Rigidbody rb;
 	float speedCharacter = 1, maxForceJump = 7;
+	public AudioSource radioSource, doorSource;
 	void Start()
 	{
 		UIhandle.SetHintUI(hintUI);
@@ -57,7 +58,7 @@ public class MovementCharacter : MonoBehaviour
 
 					if (tmp != null)
 					{
-						data.NextSubtitle(tmp, _index);
+						data.NextSubtitle(tmp, _index, radioSource);
 						_index++;
 						break;
 					}
@@ -66,6 +67,7 @@ public class MovementCharacter : MonoBehaviour
 				case "Door":
 					Animator anim = hitObject.GetComponent<Animator>();
 					anim.SetBool("IsOpen", !anim.GetBool("IsOpen"));
+					doorSource.Play();
 					break;
 				default:
 					break;

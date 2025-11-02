@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
+    
     public GameObject settingsPanel;
     public Button play, settings, exit, apply, cancel;
 

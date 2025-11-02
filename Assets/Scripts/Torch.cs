@@ -1,12 +1,21 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 public class Torch : MonoBehaviour
 {
 	public GameObject lightTorch;
+	public InputAction switchTorch;
+	public AudioSource audioSource;
 	public static bool isTorch = false;
-	void Update()
+
+    private void Start()
+    {
+		switchTorch = InputSystem.actions.FindAction("LightSwitch");
+    }
+    void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.F))
+		if (switchTorch.WasPressedThisFrame())
 		{
+			audioSource.Play();
 			if (isTorch)
 			{
 				lightTorch.SetActive(false);

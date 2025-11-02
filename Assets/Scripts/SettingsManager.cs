@@ -14,7 +14,7 @@ namespace Assets.Scripts
 
     public class SettingsManager : MonoBehaviour
     {
-        public AudioMixer mixer;
+        public AudioManager audioManager;
         private Camera cam;
         public Button cancel, apply;
         SettingsData settingsData = new SettingsData();
@@ -62,12 +62,16 @@ namespace Assets.Scripts
             settingsData.fieldOfView = (fovScrollbar.value * 60) + 30;
             PlayerPrefs.SetFloat("FOV", settingsData.fieldOfView); 
             cam.fieldOfView = settingsData.fieldOfView;
-            settingsData.masterVolume = (MVScrollbar.value * 100);
-            PlayerPrefs.SetFloat("MasterVolume", settingsData.masterVolume);
-            settingsData.musicVolume = (MusicVScrollbar.value * 100);
-            PlayerPrefs.SetFloat("MusicVolume", settingsData.musicVolume);
-            settingsData.effectsVolume = (SFXScrollbar.value * 100);
-            PlayerPrefs.SetFloat("SFXVolume", settingsData.effectsVolume);
+            settingsData.masterVolume = (MVScrollbar.value);
+            audioManager.SetMasterVolume(settingsData.masterVolume);
+            PlayerPrefs.SetFloat("MasterVolume", settingsData.masterVolume * 100);
+            settingsData.musicVolume = (MusicVScrollbar.value);
+            audioManager.SetMusicVolume(settingsData.musicVolume);
+            PlayerPrefs.SetFloat("MusicVolume", settingsData.musicVolume * 100);
+            settingsData.effectsVolume = (SFXScrollbar.value);
+            audioManager.SetSFXVolume(settingsData.effectsVolume);
+            PlayerPrefs.SetFloat("SFXVolume", settingsData.effectsVolume * 100);
+
         }
         void LoadSettings()
         {
