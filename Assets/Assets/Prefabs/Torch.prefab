@@ -128,6 +128,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Torch
   lightTorch: {fileID: 8204653034069338892}
+  switchTorch:
+    m_Name: Switch Torch
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: f303404a-007a-4e02-8dc4-ca8021622160
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  audioSource: {fileID: 0}
 --- !u!1 &1446528206990932380
 GameObject:
   m_ObjectHideFlags: 0

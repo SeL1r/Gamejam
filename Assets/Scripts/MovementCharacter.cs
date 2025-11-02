@@ -59,6 +59,14 @@ public class MovementCharacter : MonoBehaviour
 		{
 			hitObject = hit.collider.gameObject;
 		}
+		
+		//Shadow back
+		NavMeshAgent agent = hitObject.GetComponent<NavMeshAgent>();
+		if (Torch.isTorch)
+        {
+        	agent.speed = -5;
+        }
+		
 		if (interactAction.WasPressedThisFrame() && hitObject != null)
 		{
 			switch (hitObject.tag)
@@ -86,6 +94,7 @@ public class MovementCharacter : MonoBehaviour
 					}
 					doorSource2.Play();
 					break;
+
 				case "Shadow":
 					NavMeshAgent agent = hitObject.GetComponent<NavMeshAgent>();
 					if (Torch.isTorch)
@@ -114,6 +123,9 @@ public class MovementCharacter : MonoBehaviour
                 default:
                     break;
             }
+
+			}
+
 		}
 		switch (hitObject.layer)
 		{
@@ -158,5 +170,4 @@ public class MovementCharacter : MonoBehaviour
 				rb.AddForce(Vector3.up * maxForceJump, ForceMode.Impulse);
 			}
 		}
-}
 }
