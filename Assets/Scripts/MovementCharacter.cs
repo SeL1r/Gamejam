@@ -6,21 +6,22 @@ using UnityEngine.AI;
 public class MovementCharacter : MonoBehaviour
 {
 	public UIHandler UIhandle;
-	int _index = 0;
 	float maxHeadAngle;
 	float sensetivity;
+	private Animator anim;
 	public Data data;
-	public GameObject hitObject;
+	public GameObject hitObject, pistol;
 	public Camera mainCamera;
 	public GameObject head, hintUI;
 	InputAction moveAction, jumpAction, sprintAction, lookAction, interactAction;
 	Rigidbody rb;
 	float speedCharacter = 1, maxForceJump = 7;
-	public AudioSource radioSource, doorSource;
+	public AudioSource radioSource, doorSource, doorSource2, safeSource, playerSource;
+	private bool isSoundsDoor = true, isSoundsSafe = true;
 	void Start()
 	{
 		UIhandle.SetHintUI(hintUI);
-		
+		playerSource = GetComponent<AudioSource>();
 		moveAction = InputSystem.actions.FindAction("Move");
 		jumpAction = InputSystem.actions.FindAction("Jump");
 		sprintAction = InputSystem.actions.FindAction("Sprint");
@@ -37,6 +38,15 @@ public class MovementCharacter : MonoBehaviour
 		Vector3 localVelocity = new Vector3(move.x * speedCharacter, rb.linearVelocity.y, move.y * speedCharacter);
 		Vector3 globalVelocity = transform.TransformDirection(localVelocity);
 		rb.linearVelocity = globalVelocity;
+		if ((Mathf.Abs(rb.linearVelocity.x) > .05f || Mathf.Abs(rb.linearVelocity.z) > .05f) && !playerSource.isPlaying)
+		{
+			playerSource.Play();
+		}
+		else if (Mathf.Abs(rb.linearVelocity.x) < .05f || Mathf.Abs(rb.linearVelocity.z) < .05f)
+		{
+			
+			playerSource.Stop();
+		}
 	}
 	
 	void Update()
@@ -53,23 +63,28 @@ public class MovementCharacter : MonoBehaviour
 		{
 			switch (hitObject.tag)
 			{
+				
 				case "Radio":
 					TextMeshPro tmp = hitObject.GetComponent<TextMeshPro>();
 
 					if (tmp != null)
 					{
-						data.NextSubtitle(tmp, _index, radioSource);
-						_index++;
+						data.NextSubtitle(tmp, radioSource);
 						break;
 					}
 					Debug.Log("TMP not found");
 					break;
 				case "Door":
-					Animator anim = hitObject.GetComponent<Animator>();
-					anim.SetBool("IsOpen", !anim.GetBool("IsOpen"));
-					doorSource.Play();
-					break;
-				default:
+					anim = hitObject.GetComponent<Animator>();
+					if (isSoundsDoor && data.readyToOpen)
+					{
+						anim.SetBool("IsOpen", !anim.GetBool("IsOpen"));
+						doorSource.Play();
+						isSoundsDoor = false;
+						hitObject.layer = 0;
+						break;
+					}
+					doorSource2.Play();
 					break;
 				case "Shadow":
 					NavMeshAgent agent = hitObject.GetComponent<NavMeshAgent>();
@@ -78,7 +93,27 @@ public class MovementCharacter : MonoBehaviour
                         agent.speed = -5;
                     }
 					break;
-			}
+				case "Safe":
+					anim = hitObject.GetComponent <Animator>();
+					if (data.readyToOpen && isSoundsSafe)
+					{
+						anim.SetBool("Open", true);
+						safeSource.Play();
+						isSoundsSafe = false;
+						hitObject.layer = 2;
+					}
+					break;
+				case "LevelUp":
+					data.NextStage();
+					data.SwichIsReadyToOpen();
+					Destroy(hitObject);
+					break;
+				case "Pistol":
+					pistol.SetActive(true);
+					break;
+                default:
+                    break;
+            }
 		}
 		switch (hitObject.layer)
 		{
@@ -92,6 +127,7 @@ public class MovementCharacter : MonoBehaviour
 				{
 					UIhandle.HideHint();
 				}
+				hitObject = head;
 				break;
 		}
 

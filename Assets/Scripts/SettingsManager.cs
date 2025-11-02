@@ -21,6 +21,10 @@ namespace Assets.Scripts
         public Scrollbar scrollbarSensetivity, fovScrollbar, MVScrollbar, MusicVScrollbar, SFXScrollbar;
         public TMP_Text SensetivityValue, fovText, MVText, SFXText, MusicText;
 
+        private void Awake()
+        {
+            Application.targetFrameRate = 60;
+        }
         private void Start()
         {
             cam = Camera.main;
