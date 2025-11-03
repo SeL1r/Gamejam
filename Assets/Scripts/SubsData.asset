@@ -12,9 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9abc9c86cc6a17c449744718ee651789, type: 3}
   m_Name: SubsData
   m_EditorClassIdentifier: Assembly-CSharp::Data
+  i: 5
+  currKey: 2
+  readyToOpen: 1
   subtitles:
   - AMAMAMAM
   - dingdong
   - who is knocking?
   - ballsack
   - dickpick
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  keyI: 00000000050000000a000000
