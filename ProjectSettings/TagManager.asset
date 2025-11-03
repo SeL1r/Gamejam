@@ -8,6 +8,7 @@ TagManager:
   - Door
   - LevelUp
   - Safe
+  - Pistol
   layers:
   - Default
   - TransparentFX
